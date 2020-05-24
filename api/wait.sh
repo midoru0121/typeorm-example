@@ -1,0 +1,1 @@
+until `nc -z $DB_HOST 3306`; do echo "waiting mysql..."; sleep 1; done

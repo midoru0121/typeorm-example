@@ -1,0 +1,40 @@
+version: "3"
+services:
+  api:
+    container_name: typeorm-example-api
+    volumes:
+      - ./api:/webapp
+    working_dir: /webapp
+    image: node:12.16.1-alpine3.9
+    command: sh -c "sh ./wait.sh && yarn && yarn migrate && yarn dev"
+    ports:
+      - "13000:3000"
+    tty: true
+    stdin_open: true
+    environment:
+      - APP_PORT=3000
+      - DB_USER=user
+      - DB_PASS=pass
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=example
+      - TZ=Asia/Tokyo
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    container_name: typeorm-example-db
+    tty: true
+    stdin_open: true
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db/data/mysql:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - TZ=Asia/Tokyo
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_ROOT_PASSWORD=root_pass
+      - MYSQL_DATABASE=example
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci

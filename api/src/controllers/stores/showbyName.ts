@@ -1,28 +1,31 @@
 import { Request, Response } from "express";
-import { Connection } from "typeorm";
-
+import { Connection, Like } from "typeorm";
 import { Store } from "src/entity/store";
 import { sendError } from "src/response";
 import { sendOK } from "src/response";
 import { check, validationResult } from "express-validator";
 
-export const validateStoreShow = [check("id").not().isEmpty().isNumeric()];
+export const validateStoreShowByName = [
+  check("id").not().isEmpty().isNumeric(),
+];
 
-export const storesShow = (db: Connection) => {
+export const storesShowByName = (db: Connection) => {
   return async (req: Request, res: Response) => {
     try {
       const errors = validationResult(req);
-
       if (errors.isEmpty()) {
-        // Fetch One Data
-        const store = await db.getRepository(Store).findOne({
+        const storeRepository = db.getRepository(Store);
+        const name = Like(`%${req.query.name}%`);
+
+        // Fetch Like
+        const stores = await storeRepository.find({
           where: {
-            id: req.params.id,
+            name,
           },
         });
-        return sendOK(res, store);
+        return sendOK(res, stores);
       }
-      return sendError(res, 400, "error");
+      return sendError(res, 400, "Bad Request");
     } catch (e) {
       console.error(e);
       return sendError(res, 500, "error");

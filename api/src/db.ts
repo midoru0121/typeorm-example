@@ -1,5 +1,7 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
+import { Store } from "src/entity/store";
+import { Review } from "src/entity/review";
 
 const database = process.env.DB_NAME || "";
 const username = process.env.DB_USER || "";
@@ -15,7 +17,7 @@ export const genConnection = async () =>
     username,
     password,
     database,
-    entities: [],
+    entities: [Store, Review],
     synchronize: false,
     logging: false,
   });

@@ -12,23 +12,8 @@ export class Store extends BaseEntity {
   name!: string;
 
   @Column()
-  prefecture!: string;
-
-  @Column()
-  city!: string;
-
-  @Column()
   address!: string;
 
   @Column()
-  openingHours!: string;
-
-  @Column()
   genre!: string;
-
-  @Column()
-  demaeLink!: string;
-
-  @Column()
-  uberLink!: string;
 }

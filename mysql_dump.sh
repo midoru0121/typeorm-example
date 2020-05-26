@@ -1,0 +1,1 @@
+docker exec typeorm-example-db mysqldump -u user -ppass example > dump.sql

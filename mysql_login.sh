@@ -1,0 +1,1 @@
+docker exec -it typeorm-example-db mysql -u user -ppass example 

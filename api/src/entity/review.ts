@@ -9,9 +9,6 @@ export class Review extends BaseEntity {
   storeId!: number;
 
   @Column()
-  userId!: string;
-
-  @Column()
   score!: number;
 
   @Column()
@@ -19,13 +16,4 @@ export class Review extends BaseEntity {
 
   @Column()
   content!: string;
-
-  @Column()
-  charge!: number;
-
-  @Column()
-  period!: string;
-
-  @Column()
-  orderDate!: string;
 }

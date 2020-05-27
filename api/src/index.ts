@@ -6,10 +6,8 @@ import {
   storesUpdate,
   validateStoreUpdate,
 } from "src/controllers/stores/update";
-import {
-  storesShowByName,
-  validateStoreShowByName,
-} from "src/controllers/stores/showbyName";
+import { storesFindLikeName } from "~/src/controllers/stores/findLikeName";
+import { storesFindFullText } from "~/src/controllers/stores/findFullText";
 
 if (!process.env.APP_PORT) {
   process.exit();
@@ -25,17 +23,16 @@ if (!process.env.APP_PORT) {
   expressApp.get("/stores/:id", validateStoreShow, storesShow(db));
 
   // create one store
-  expressApp.post("/stores/", storesCreate(db));
+  expressApp.post("/stores", storesCreate(db));
 
   // update one store
   expressApp.put("/stores/:id", validateStoreUpdate, storesUpdate(db));
 
-  // store Like Query
-  expressApp.get(
-    "/stores/showByName/:id",
-    validateStoreShowByName,
-    storesShowByName(db)
-  );
+  // fetch stores with Like Query
+  expressApp.get("/stores/find/likeName", storesFindLikeName(db));
+
+  // fetch stores with MySQL FullText Search Query (ngram)
+  expressApp.get("/stores/find/fullText", storesFindFullText(db));
 
   expressApp.listen(process.env.APP_PORT, () => {
     console.log(`Node Server started!`);

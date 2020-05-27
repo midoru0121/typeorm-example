@@ -19,5 +19,5 @@ export const genConnection = async () =>
     database,
     entities: [Store, Review],
     synchronize: false,
-    logging: false,
+    logging: process.env.NODE_ENV == "production" ? false : true,
   });

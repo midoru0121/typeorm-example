@@ -17,6 +17,7 @@ export const initializeApp = async () => {
   const expressApp = express();
   configureServer(expressApp);
   const db = await genConnection();
+
   const application = {
     expressApp,
     db,

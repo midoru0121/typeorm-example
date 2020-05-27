@@ -77,7 +77,14 @@ curl -X GET http://localhost:13000/stores/1
 
 ```
 # Get a store with MySQL LIKE operator query
-curl -X GET "http://localhost:13000/stores/showByName/1?name=new"
+curl -X GET "http://localhost:13000/stores/find/likeName?name=new"
+```
+
+`Get a store with MySQL FullText Search (ngram)`
+
+```
+# Get a store with MySQL FullText Search (ngram)
+curl "http://localhost:13000/stores/find/fullText?name=new&address=Kyoto&genre=Fast"
 ```
 
 

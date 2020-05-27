@@ -15,8 +15,6 @@ const composeSearchQuery = ({
 
 export const storesFindFullText = (db: Connection) => {
   return async (req: Request, res: Response) => {
-    console.log(req.query);
-
     try {
       const searchQueries = [
         {
@@ -42,8 +40,6 @@ export const storesFindFullText = (db: Connection) => {
         .createQueryBuilder()
         .select();
 
-      console.log(filteredSearchQueries);
-
       filteredSearchQueries.forEach((search, index) => {
         if (index === 0) {
           return query.where(
@@ -51,9 +47,9 @@ export const storesFindFullText = (db: Connection) => {
           );
         }
 
-        // return query.andWhere(
-        //   `MATCH(${search.column}) AGAINST ('${search.match}' IN BOOLEAN MODE)`
-        // );
+        return query.andWhere(
+          composeSearchQuery({ match: search.match, column: search.column })
+        );
       });
 
       const stores = await query.orderBy(`score`, "DESC").getMany();

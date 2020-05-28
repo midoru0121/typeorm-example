@@ -45,42 +45,42 @@ docker exec typeorm-example-db mysqldump -u user -ppass example > dump.sql
 ### APIs
 
 
-`Create a store`
+#### Create a store
 
 ```
 # Create a store
 curl -X POST -H "Content-Type: application/json" -d '{"name":"my shop name", "genre":"Fast Food", "address":"Tokyo, Japan"}' http://localhost:13000/stores
 ```
 
-`Update a store`
+#### Update a store
 
 ```
 # Updtate a store
 curl -X PUT -H "Content-Type: application/json" -d '{"name":"my new shop name", "genre":" NEW Fast Food", "address":"Kyoto, Japan"}' http://localhost:13000/stores/1
 ```
 
-`Get all store`
+#### Get all store
 
 ```
 # Get all store
 curl -X GET http://localhost:13000/stores 
 ```
 
-`Get a store`
+#### Get a store
 
 ```
 # Get a store
 curl -X GET http://localhost:13000/stores/1
 ```
 
-`Get a store with MySQL LIKE operator query`
+#### Get a store with MySQL LIKE operator query
 
 ```
 # Get a store with MySQL LIKE operator query
 curl -X GET "http://localhost:13000/stores/find/likeName?name=new"
 ```
 
-`Get a store with MySQL FullText Search (ngram)`
+#### Get a store with MySQL FullText Search (ngram)
 
 ```
 # Get a store with MySQL FullText Search (ngram)
@@ -88,10 +88,10 @@ curl "http://localhost:13000/stores/find/fullText?name=new&address=Kyoto&genre=F
 ```
 
 
-`Create one review and calculate store\'s avarage score and set to the store`
+#### Create one review and calculate store's avarage score and set to the store
 
 ```
-# Create one review and calculate store\'s avarage score and set to the store
+# Create one review and calculate store's avarage score and set to the store
 curl -X POST -H "Content-Type: application/json" -d '{"storeId":1, "score": 5, "title":"Good!", "content": "Yummy!"}' http://localhost:13000/reviews
 ```
 

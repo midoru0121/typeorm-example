@@ -7,7 +7,7 @@ The example usage of [TypeORM](https://typeorm.io/) with MySQL.
 
 ## Summary
 
-The repogitory contains
+This repogitory contains:
 
 * Node.js Backend API (Communicate MySQL with TypeORM) (accesible from host at PORT 13000)
 * MySQL
@@ -87,6 +87,13 @@ curl -X GET "http://localhost:13000/stores/find/likeName?name=new"
 curl "http://localhost:13000/stores/find/fullText?name=new&address=Kyoto&genre=Fast"
 ```
 
+
+`Create one review and calculate store\'s avarage score and set to the store`
+
+```
+# Create one review and calculate store\'s avarage score and set to the store
+curl -X POST -H "Content-Type: application/json" -d '{"storeId":1, "score": 5, "title":"Good!", "content": "Yummy!"}' http://localhost:13000/reviews
+```
 
 ### Create Migration File
 

@@ -8,6 +8,7 @@ import {
 } from "src/controllers/stores/update";
 import { storesFindLikeName } from "~/src/controllers/stores/findLikeName";
 import { storesFindFullText } from "~/src/controllers/stores/findFullText";
+import { reviewsCreate } from "./controllers/reviews/create";
 
 if (!process.env.APP_PORT) {
   process.exit();
@@ -33,6 +34,9 @@ if (!process.env.APP_PORT) {
 
   // fetch stores with MySQL FullText Search Query (ngram)
   expressApp.get("/stores/find/fullText", storesFindFullText(db));
+
+  // Create one review and set avarage score to the store the review belongs to
+  expressApp.post("/reviews", reviewsCreate(db));
 
   expressApp.listen(process.env.APP_PORT, () => {
     console.log(`Node Server started!`);

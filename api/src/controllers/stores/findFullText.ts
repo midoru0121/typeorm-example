@@ -10,40 +10,36 @@ export const storesFindFullText = (db: Connection) => {
       const searchQueries = [
         {
           column: "name",
-          match: (req.query.name as string) || "",
+          text: (req.query.name as string) || "",
         },
         {
           column: "genre",
-          match: (req.query.genre as string) || "",
+          text: (req.query.genre as string) || "",
         },
         {
           column: "address",
-          match: (req.query.address as string) || "",
+          text: (req.query.address as string) || "",
         },
-      ];
-
-      const filteredSearchQueries = searchQueries.filter(
-        (search) => search.match !== ""
-      );
+      ].filter((search) => search.text !== "");
 
       let query = await db.manager
         .getRepository(Store)
         .createQueryBuilder()
         .select();
 
-      filteredSearchQueries.forEach((search, index) => {
+      searchQueries.forEach((search, index) => {
         if (index === 0) {
           return query.where(
             // escape user input value, when performing raw SQL.
-            `MATCH(${search.column}) AGAINST (:match IN BOOLEAN MODE)`,
-            { match: search.match }
+            `MATCH(${search.column}) AGAINST (:text IN BOOLEAN MODE)`,
+            { text: search.text }
           );
         }
 
         return query.andWhere(
           // escape user input value, when performing raw SQL.
-          `MATCH(${search.column}) AGAINST (:match IN BOOLEAN MODE)`,
-          { match: search.match }
+          `MATCH(${search.column}) AGAINST (:text IN BOOLEAN MODE)`,
+          { text: search.text }
         );
       });
 

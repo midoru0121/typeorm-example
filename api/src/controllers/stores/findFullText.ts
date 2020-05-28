@@ -3,15 +3,6 @@ import { Connection } from "typeorm";
 
 import { Store } from "src/entity/store";
 import { sendOK, sendError } from "src/response";
-import SqlString from "sqlstring";
-
-const composeSearchQuery = ({
-  column,
-  match,
-}: {
-  column: string;
-  match: string;
-}) => `MATCH(${column}) AGAINST (${SqlString.escape(match)} IN BOOLEAN MODE)`;
 
 export const storesFindFullText = (db: Connection) => {
   return async (req: Request, res: Response) => {
@@ -43,12 +34,16 @@ export const storesFindFullText = (db: Connection) => {
       filteredSearchQueries.forEach((search, index) => {
         if (index === 0) {
           return query.where(
-            composeSearchQuery({ match: search.match, column: search.column })
+            // escape user input value, when performing raw SQL.
+            `MATCH(${search.column}) AGAINST (:match IN BOOLEAN MODE)`,
+            { match: search.match }
           );
         }
 
         return query.andWhere(
-          composeSearchQuery({ match: search.match, column: search.column })
+          // escape user input value, when performing raw SQL.
+          `MATCH(${search.column}) AGAINST (:match IN BOOLEAN MODE)`,
+          { match: search.match }
         );
       });
 

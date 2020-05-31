@@ -25,7 +25,6 @@ export class Review extends BaseEntity {
   @Column()
   content!: string;
 
-  // 多対一リレーション
   @ManyToOne((_type) => Store, (store) => store.reviews)
   @JoinColumn({ name: "storeId" })
   store!: Store;

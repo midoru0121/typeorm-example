@@ -18,7 +18,6 @@ export class Store extends BaseEntity {
   @Column()
   genre!: string;
 
-  // 一対多リレーション
   @OneToMany((_type) => Review, (review) => review.store)
   reviews!: Review[];
 }

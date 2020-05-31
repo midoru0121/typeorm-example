@@ -1,5 +1,5 @@
 import { Entity, BaseEntity, PrimaryColumn, Column, OneToMany } from "typeorm";
-import { Review } from "./review";
+import { Review } from "src/entity/review";
 
 @Entity({ name: "stores" })
 export class Store extends BaseEntity {

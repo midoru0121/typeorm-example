@@ -6,7 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from "typeorm";
-import { Store } from "./store";
+import { Store } from "src/entity/store";
 
 @Entity({ name: "reviews" })
 export class Review extends BaseEntity {

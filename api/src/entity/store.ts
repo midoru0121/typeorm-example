@@ -1,4 +1,5 @@
-import { Entity, BaseEntity, PrimaryColumn, Column } from "typeorm";
+import { Entity, BaseEntity, PrimaryColumn, Column, OneToMany } from "typeorm";
+import { Review } from "./review";
 
 @Entity({ name: "stores" })
 export class Store extends BaseEntity {
@@ -16,4 +17,8 @@ export class Store extends BaseEntity {
 
   @Column()
   genre!: string;
+
+  // 一対多リレーション
+  @OneToMany((_type) => Review, (review) => review.store)
+  reviews!: Review[];
 }

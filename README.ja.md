@@ -182,10 +182,10 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"my shop name", "ge
 curl -X PUT -H "Content-Type: application/json" -d '{"name":"my new shop name", "genre":" NEW Fast Food", "address":"Kyoto, Japan"}' http://localhost:13000/stores/1
 ```
 
-#### 全ての店舗を取得する
+#### 全ての店舗を取得する (子のリレーションであるレビュー一覧も併せて取得)
 
 ```
-# Get all store
+# Get all store with child reviews
 curl -X GET http://localhost:13000/stores 
 ```
 

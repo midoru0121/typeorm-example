@@ -179,7 +179,7 @@ curl -X PUT -H "Content-Type: application/json" -d '{"name":"my new shop name", 
 #### Get all store
 
 ```
-# Get all store
+# Get all store with child reviews
 curl -X GET http://localhost:13000/stores 
 ```
 

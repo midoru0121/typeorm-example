@@ -35,6 +35,9 @@ if (!process.env.APP_PORT) {
   // fetch stores with MySQL FullText Search Query (ngram)
   expressApp.get("/stores/find/fullText", storesFindFullText(db));
 
+  // fetch reviews with storeId
+  expressApp.get("/reviews", reviewsCreate(db));
+
   // Create one review and set avarage score to the store the review belongs to
   expressApp.post("/reviews", reviewsCreate(db));
 

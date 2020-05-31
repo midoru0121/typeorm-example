@@ -11,7 +11,10 @@ export const storesIndex = (db: Connection) => {
       const storeRepository = db.getRepository(Store);
 
       // Fetch All Data
-      const stores = await storeRepository.find();
+      const stores = await storeRepository.find({
+        relations: ["reviews"],
+      });
+
       return sendOK(res, stores);
     } catch (e) {
       console.error(e);

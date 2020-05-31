@@ -1,4 +1,12 @@
-import { Entity, BaseEntity, PrimaryColumn, Column } from "typeorm";
+import {
+  Entity,
+  BaseEntity,
+  PrimaryColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
+import { Store } from "./store";
 
 @Entity({ name: "reviews" })
 export class Review extends BaseEntity {
@@ -16,4 +24,9 @@ export class Review extends BaseEntity {
 
   @Column()
   content!: string;
+
+  // 多対一リレーション
+  @ManyToOne((_type) => Store, (store) => store.reviews)
+  @JoinColumn({ name: "storeId" })
+  store!: Store;
 }

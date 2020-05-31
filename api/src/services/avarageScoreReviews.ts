@@ -29,10 +29,11 @@ export const avarageScoreReviewsService = async ({
       // Create a review
       await transactionalEntityManager.save(newReview);
 
-      const reviewsScoreAverage = await transactionalEntityManager
+      const reviewsScoreAvarage = await transactionalEntityManager
         .createQueryBuilder()
         .select("TRUNCATE(AVG(score), 1)", "score")
         .from(Review, "reviews")
+        .where("storeId = :storeId", { storeId })
         .getRawOne();
 
       const store = await transactionalEntityManager.findOne(Store, {
@@ -46,7 +47,7 @@ export const avarageScoreReviewsService = async ({
       }
 
       // set the avarage score to the store
-      store.score = reviewsScoreAverage;
+      store.score = reviewsScoreAvarage;
       await transactionalEntityManager.save(store);
     } catch (e) {
       console.log(e);

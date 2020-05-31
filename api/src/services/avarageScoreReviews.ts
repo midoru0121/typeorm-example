@@ -29,18 +29,11 @@ export const avarageScoreReviewsService = async ({
       // Create a review
       await transactionalEntityManager.save(newReview);
 
-      // Get all of the reviews the store has
-      const reviews = await transactionalEntityManager.find(Review, {
-        where: {
-          storeId,
-        },
-      });
-
-      // Calculate avarage score.
-      const reviewScores = reviews.map((review) => review.score);
-      const scoreSum = reviewScores.reduce((acc, cur) => acc + cur);
-      const scoreAvarage = scoreSum / reviewScores.length;
-      const storeScore = Math.ceil(scoreAvarage * 10) / 10;
+      const reviewsScoreAverage = await transactionalEntityManager
+        .createQueryBuilder()
+        .select("TRUNCATE(AVG(score), 1)", "score")
+        .from(Review, "reviews")
+        .getRawOne();
 
       const store = await transactionalEntityManager.findOne(Store, {
         where: {
@@ -53,9 +46,10 @@ export const avarageScoreReviewsService = async ({
       }
 
       // set the avarage score to the store
-      store!.score = storeScore;
+      store.score = reviewsScoreAverage;
       await transactionalEntityManager.save(store);
     } catch (e) {
+      console.log(e);
       throw new Error(e);
     }
   });

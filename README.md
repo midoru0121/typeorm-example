@@ -176,6 +176,13 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"my shop name", "ge
 curl -X PUT -H "Content-Type: application/json" -d '{"name":"my new shop name", "genre":" NEW Fast Food", "address":"Kyoto, Japan"}' http://localhost:13000/stores/1
 ```
 
+#### Delete a store
+
+```
+# Delete a store
+curl -X DELETE -H "Content-Type: application/json" http://localhost:13000/stores/2
+```
+
 #### Get all store
 
 ```

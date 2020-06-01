@@ -18,6 +18,8 @@ export class Store extends BaseEntity {
   @Column()
   genre!: string;
 
-  @OneToMany((_type) => Review, (review) => review.store)
+  @OneToMany((_type) => Review, (review) => review.store, {
+    onDelete: "CASCADE",
+  })
   reviews!: Review[];
 }

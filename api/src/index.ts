@@ -9,6 +9,7 @@ import {
 import { storesFindLikeName } from "~/src/controllers/stores/findLikeName";
 import { storesFindFullText } from "~/src/controllers/stores/findFullText";
 import { reviewsCreate } from "./controllers/reviews/create";
+import { validateStoreDelete, storesDelete } from "./controllers/stores/delete";
 
 if (!process.env.APP_PORT) {
   process.exit();
@@ -28,6 +29,9 @@ if (!process.env.APP_PORT) {
 
   // update one store
   expressApp.put("/stores/:id", validateStoreUpdate, storesUpdate(db));
+
+  // delete one store
+  expressApp.delete("/stores/:id", validateStoreDelete, storesDelete(db));
 
   // fetch stores with Like Query
   expressApp.get("/stores/find/likeName", storesFindLikeName(db));

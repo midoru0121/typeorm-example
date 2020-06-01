@@ -25,7 +25,9 @@ export class Review extends BaseEntity {
   @Column()
   content!: string;
 
-  @ManyToOne((_type) => Store, (store) => store.reviews)
+  @ManyToOne((_type) => Store, (store) => store.reviews, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "storeId" })
   store!: Store;
 }

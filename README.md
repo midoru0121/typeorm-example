@@ -1,5 +1,8 @@
 # TypeORM example
 
+<a href="https://github.com/AtaruOhto/typeorm-example/blob/master/README.ja.md">日本語 (Japanese)</a>
+
+
 The example usage of [TypeORM](https://typeorm.io/) with MySQL.
 
 ![TypeORM Logo Image](https://user-images.githubusercontent.com/3450879/82937367-050ae900-9fcb-11ea-9371-8cd0c4bf77a0.png)

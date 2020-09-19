@@ -4,7 +4,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
     "helmet": "^3.23.3",
-    "mysql2": "^2.1.0",
+    "mysql2": "^2.2.2",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^8.10.2",
     "tsconfig-paths": "^3.9.0",
